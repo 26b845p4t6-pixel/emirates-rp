@@ -1,0 +1,54 @@
+<!DOCTYPE html>  
+<html lang="ru">  
+<head>  
+<meta charset="UTF-8">  
+<meta name="viewport" content="width=device-width,initial-scale=1">  
+<title>Emirates RP</title>  
+<script src="https://telegram.org"></script>  
+<style>  
+body{margin:0;padding:12px;background:#0f1115;color:#fff;font-family:sans-serif}  
+.top{background:#c8102e;padding:14px;border-radius:12px;margin-bottom:12px}  
+.box{background:#181c23;padding:12px;border-radius:12px;margin-bottom:10px}  
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:8px}  
+button{padding:11px 0;border-radius:8px;border:1px solid #2ecc71;background:#1f3a2e;color:#fff;font-weight:700;font-size:14px}  
+button.vip{border-color:#d4af37;background:#2d2614;color:#d4af37}  
+button.buy{width:100%;margin-top:12px;background:#c8102e;border:none;padding:14px;font-size:15px}  
+</style>  
+</head>  
+<body>  
+<div class="top"><b>✈️ EMIRATES RP • AIRBUS A380</b><br><small>База: Tokyo International • Ник: Corwer2</small></div>  
+  
+<div class="box">  
+  <b>1-й этаж (10 миль) — выбери место:</b>  
+  <div class="grid">  
+    <button onclick="pick('1A (10 миль)')">1A</button>  
+    <button onclick="pick('1B (10 миль)')">1B</button>  
+    <button onclick="pick('1C (10 миль)')">1C</button>  
+    <button onclick="pick('1D (10 миль)')">1D</button>  
+    <button onclick="pick('2A (10 миль)')">2A</button>  
+    <button onclick="pick('2B (10 миль)')">2B</button>  
+    <button onclick="pick('2C (10 миль)')">2C</button>  
+    <button onclick="pick('2D (10 миль)')">2D</button>  
+  </div>  
+</div>  
+  
+<div class="box">  
+  <b style="color:#d4af37">2-й этаж VIP + Бар (20 миль):</b>  
+  <div class="grid">  
+    <button class="vip" onclick="pick('VIP-1 (20 миль)')">VIP-1</button>  
+    <button class="vip" onclick="pick('VIP-2 (20 миль)')">VIP-2</button>  
+    <button class="vip" onclick="pick('BAR-1 (20 миль)')">BAR-1</button>  
+    <button class="vip" onclick="pick('BAR-2 (20 миль)')">BAR-2</button>  
+  </div>  
+</div>  
+  
+<div class="box">  
+  <div id="res">Выбрано: <b>1A (10 миль)</b></div>  
+  <button class="buy" onclick="Telegram.WebApp.close()">Оплатить билет в боте</button>  
+</div>  
+  
+<script>  
+function pick(t){ document.getElementById('res').innerHTML = 'Выбрано: <b>' + t + '</b>'; }  
+</script>  
+</body>  
+</html>  
