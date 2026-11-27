@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Emirates RP | PTFS Mini App</title>
+  <script src="https://telegram.org"></script>
+  <style>
+    :root {
+      --red: #d71921;
+      --dark-red: #9e1117;
+      --gold: #d4af37;
+      --bg: #0f1115;
+      --card: #181c23;
+      --text: #f4f6f9;
+      --muted: #9aa3b2;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    body { background: var(--bg); color: var(--text); padding: 14px; padding-bottom: 85px; }
+    .header {
+      background: linear-gradient(135deg, var(--red), var(--dark-red));
+      border-radius: 16px; padding: 18px; margin-bottom: 14px;
+      box-shadow: 0 8px 20px rgba(215, 25, 33, 0.3);
+    }
+    .header h1 { font-size: 20px; font-weight: 800; letter-spacing: 0.5px; }
+    .header p { font-size: 13px; opacity: 0.9; margin-top: 4px; }
+    .badge { display: inline-block; background: rgba(0,0,0,0.35); border: 1px solid var(--gold); color: var(--gold); font-size: 11px; padding: 3px 8px; border-radius: 20px; margin-top: 8px; }
+    .tabs { display: flex; gap: 8px; margin-bottom: 14px; }
+    .tab {
+      flex: 1; padding: 10px; border-radius: 12px; border: 1px solid #2a303c;
+      background: var(--card); color: var(--muted); font-weight: 600; font-size: 13px; cursor: pointer; text-align: center;
+    }
+    .tab.active { background: var(--red); color: #fff; border-color: var(--red); }
+    .card { background: var(--card); border-radius: 16px; padding: 16px; margin-bottom: 14px; border: 1px solid #252b36; }
+    .card h2 { font-size: 16px; margin-bottom: 10px; color: var(--gold); }
+    .flight-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #252b36; }
+    .flight-row:last-child { border-bottom: none; }
+    .status { font-size: 11px; padding: 3px 8px; border-radius: 8px; background: rgba(46, 204, 113, 0.15); color: #2ecc71; font-weight: 600; }
+    .deck-switch { display: flex; gap: 8px; margin-bottom: 12px; }
+    .deck-btn { flex: 1; padding: 9px; border-radius: 10px; border: 1px solid #303746; background: #12151b; color: var(--text); font-weight: 600; cursor: pointer; }
+    .deck-btn.active { border-color: var(--gold); color: var(--gold); background: rgba(212, 175, 55, 0.1); }
+    .cabin { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; max-width: 280px; margin: 12px auto; }
+    .seat {
+      padding: 10px 0; border-radius: 8px; background: #232934; text-align: center;
+      font-size: 12px; font-weight: 700; cursor: pointer; border: 1px solid #323a49; transition: 0.15s;
+    }
+    .seat.vip { border-color: rgba(212, 175, 55, 0.5); color: var(--gold); }
+    .seat.selected { background: var(--red); color: #fff; border-color: #fff; transform: scale(1.05); }
+    .fleet-item { margin-bottom: 10px; padding: 10px; background: #12151b; border-radius: 10px; border-left: 3px solid var(--red); }
+    .hidden { display: none; }
+    .bottom-bar {
+      position: fixed; bottom: 0; left: 0; right: 0; background: #151820;
+      padding: 12px 16px; border-top: 1px solid #262c38; display: flex; justify-content: space-between; align-items: center;
+    }
+    .buy-btn {
+      background: linear-gradient(135deg, var(--red), var(--dark-red)); color: #fff;
+      border: none; padding: 12px 18px; border-radius: 12px; font-weight: 700; font-size: 14px; cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h1>✈️ EMIRATES RP • PTFS</h1>
+    <p>Официальный терминал вылетов • База: Tokyo International</p>
+    <div class="badge">Флагман: Airbus A380-800 • Ник командира: Corwer2</div>
+  </div>
+
+  <div class="tabs">
+    <div class="tab active" onclick="switchTab('seats', this)">💺 Выбор места</div>
+    <div class="tab" onclick="switchTab('flights', this)">🛫 Табло Токио</div>
+    <div class="tab" onclick="switchTab('fleet', this)">🛩 Наш флот</div>
+  </div>
+
+  <div id="tab-seats" class="card">
+    <h2>Схема салона Airbus A380</h2>
+    <p style="font-size: 12px; color: var(--muted); margin-bottom: 10px;">Нажми на свободное кресло, чтобы забронировать посадку:</p>
+    <div class="deck-switch">
+      <button class="deck-btn active" id="btn-deck1" onclick="setDeck(1)">1-й этаж (10 миль)</button>
+      <button class="deck-btn" id="btn-deck2" onclick="setDeck(2)">2-й этаж VIP (20 миль)</button>
+    </div>
+    <div id="cabin-grid" class="cabin"></div>
+  </div>
+
+  <div id="tab-flights" class="card hidden">
+    <h2>Онлайн-табло • Tokyo International</h2>
+    <div class="flight-row">
+      <div><strong>EK-380 • Токио ➔ Грейтер Рокфорд</strong><br><span style="font-size:12px;color:var(--muted)">Airbus A380 • Гейт 12</span></div>
+      <span class="status">Регистрация</span>
+    </div>
+    <div class="flight-row">
+      <div><strong>EK-777 • Токио ➔ Саутгемптон</strong><br><span style="font-size:12px;color:var(--muted)">Airbus A380 • VIP-рейс</span></div>
+      <span class="status">По расписанию</span>
+    </div>
+    <div class="flight-row">
+      <div><strong>EK-001 • Токио ➔ Перт / Сайпрус</strong><br><span style="font-size:12px;color:var(--muted)">Airbus A380 • Набор экипажа</span></div>
+      <span class="status">Ожидается</span>
+    </div>
+  </div>
+
+  <div id="tab-fleet" class="card hidden">
+    <h2>Авиапарк Эмирейтс РП</h2>
+    <div class="fleet-item">
+      <strong>👑 Airbus A380-800 (Главный флагман)</strong>
+      <p style="font-size:12px;color:var(--muted);margin-top:4px;">2 этажа, Первый класс с лаунж-баром на верхней палубе, дальность через всю карту PTFS.</p>
+    </div>
+    <div class="fleet-item">
+      <strong>✈️ Boeing 777-300ER / Airbus A350</strong>
+      <p style="font-size:12px;color:var(--muted);margin-top:4px;">Скоростные одноэтажные дальнемагистральные лайнеры для регулярных рейсов из Токио.</p>
+    </div>
+    <div class="fleet-item">
+      <strong>🚀 Concorde (Спецрейсы)</strong>
+      <p style="font-size:12px;color:var(--muted);margin-top:4px;">Сверхзвуковые экспресс-перелёты (1165 узлов) для владельцев Золотой карты VIP.</p>
+    </div>
+  </div>
+
+  <div class="bottom-bar">
+    <div>
+      <div style="font-size:11px;color:var(--muted)">Выбрано место:</div>
+      <div id="selected-info" style="font-weight:700;font-size:14px;">1A (1-й этаж • 10 миль)</div>
+    </div>
+    <button class="buy-btn" onclick="bookSeat()">Оформить в боте</button>
+  </div>
+
+  <script>
+    const tg = window.Telegram.WebApp;
+    tg.expand();
+
+    let currentDeck = 1;
+    let selectedSeat = "1A";
+
+    function renderSeats() {
+      const grid = document.getElementById("cabin-grid");
+      grid.innerHTML = "";
+      const rows = currentDeck === 1 ? ["1A","1B","1C","1D","2A","2B","2C","2D","3A","3B","3C","3D"] : ["VIP-1","VIP-2","VIP-3","VIP-4","BAR-1","BAR-2","BAR-3","BAR-4"];
+      rows.forEach(seat => {
+        const div = document.createElement("div");
+        div.className = "seat" + (currentDeck === 2 ? " vip" : "") + (seat === selectedSeat ? " selected" : "");
+        div.innerText = seat;
+        div.onclick = () => {
+          selectedSeat = seat;
+          updateInfo();
+          renderSeats();
+        };
+        grid.appendChild(div);
+      });
+    }
+
+    function setDeck(deck) {
+      currentDeck = deck;
+      selectedSeat = deck === 1 ? "1A" : "VIP-1";
+      document.getElementById("btn-deck1").classList.toggle("active", deck === 1);
+      document.getElementById("btn-deck2").classList.toggle("active", deck === 2);
+      updateInfo();
+      renderSeats();
+    }
+
+    function updateInfo() {
+      const price = currentDeck === 1 ? "10 миль" : "20 миль";
+      const floor = currentDeck === 1 ? "1-й этаж" : "2-й этаж VIP";
+      document.getElementById("selected-info").innerText = `${selectedSeat} (${floor} • ${price})`;
+    }
+
+    function switchTab(tabName, el) {
+      document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+      el.classList.add("active");
+      ["seats", "flights", "fleet"].forEach(name => {
+        document.getElementById("tab-" + name).classList.toggle("hidden", name !== tabName);
+      });
+    }
+
+    function bookSeat() {
+      const floor = currentDeck === 1 ? "1-й этаж (10 миль)" : "2-й этаж VIP (20 миль)";
+      alert(`Отлично! Ты выбрал место ${selectedSeat} (${floor}). Сейчас откроется бот — нажми «🛒 Магазин билетов» для оплаты милями!`);
+      tg.openTelegramLink("https://t.me");
+    }
+
+    renderSeats();
+  </script>
+</body>
+</html>
