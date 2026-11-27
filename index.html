@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
@@ -108,67 +108,7 @@
       <strong>✈️ Boeing 777-300ER / Airbus A350</strong>
       <p style="font-size:12px;color:var(--muted);margin-top:4px;">Скоростные одноэтажные дальнемагистральные лайнеры для регулярных рейсов из Токио.</p>
     </div>
-    <div class="fleet-item">
-      <strong>🚀 Concorde (Спецрейсы)</strong>
-      <p style="font-size:12px;color:var(--muted);margin-top:4px;">Сверхзвуковые экспресс-перелёты (1165 узлов) для владельцев Золотой карты VIP.</p>
-    </div>
-  </div>
-
-  <div class="bottom-bar">
-    <div>
-      <div style="font-size:11px;color:var(--muted)">Выбрано место:</div>
-      <div id="selected-info" style="font-weight:700;font-size:14px;">1A (1-й этаж • 10 миль)</div>
-    </div>
-    <button class="buy-btn" onclick="bookSeat()">Оформить в боте</button>
-  </div>
-
-  <script>
-    const tg = window.Telegram.WebApp;
-    tg.expand();
-
-    let currentDeck = 1;
-    let selectedSeat = "1A";
-
-    function renderSeats() {
-      const grid = document.getElementById("cabin-grid");
-      grid.innerHTML = "";
-      const rows = currentDeck === 1 ? ["1A","1B","1C","1D","2A","2B","2C","2D","3A","3B","3C","3D"] : ["VIP-1","VIP-2","VIP-3","VIP-4","BAR-1","BAR-2","BAR-3","BAR-4"];
-      rows.forEach(seat => {
-        const div = document.createElement("div");
-        div.className = "seat" + (currentDeck === 2 ? " vip" : "") + (seat === selectedSeat ? " selected" : "");
-        div.innerText = seat;
-        div.onclick = () => {
-          selectedSeat = seat;
-          updateInfo();
-          renderSeats();
-        };
-        grid.appendChild(div);
-      });
-    }
-
-    function setDeck(deck) {
-      currentDeck = deck;
-      selectedSeat = deck === 1 ? "1A" : "VIP-1";
-      document.getElementById("btn-deck1").classList.toggle("active", deck === 1);
-      document.getElementById("btn-deck2").classList.toggle("active", deck === 2);
-      updateInfo();
-      renderSeats();
-    }
-
-    function updateInfo() {
-      const price = currentDeck === 1 ? "10 миль" : "20 миль";
-      const floor = currentDeck === 1 ? "1-й этаж" : "2-й этаж VIP";
-      document.getElementById("selected-info").innerText = `${selectedSeat} (${floor} • ${price})`;
-    }
-
-    function switchTab(tabName, el) {
-      document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
-      el.classList.add("active");
-      ["seats", "flights", "fleet"].forEach(name => {
-        document.getElementById("tab-" + name).classList.toggle("hidden", name !== tabName);
-      });
-    }
-
+    <div class="fleet-item"", name !== 
     function bookSeat() {
       const floor = currentDeck === 1 ? "1-й этаж (10 миль)" : "2-й этаж VIP (20 миль)";
       alert(`Отлично! Ты выбрал место ${selectedSeat} (${floor}). Сейчас откроется бот — нажми «🛒 Магазин билетов» для оплаты милями!`);
@@ -178,4 +118,4 @@
     renderSeats();
   </script>
 </body>
-</html>
+</html
