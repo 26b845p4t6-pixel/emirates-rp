@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Emirates RP • Меню и Частые вопросы</title>
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:#f6f1e7;color:#1f1c18;font-family:-apple-system,BlinkMacSystemFont,sans-serif;line-height:1.5;padding-bottom:36px}
+.hero{background:linear-gradient(145deg,#efe4cf 0%,#e3d0ae 100%);padding:24px 18px 20px;border-bottom:1.5px solid #c5a059;text-align:center}
+.kicker{font-family:monospace;font-size:11px;letter-spacing:2px;color:#8a682a;text-transform:uppercase;margin-bottom:6px}
+.hero h1{margin:0;font-size:24px;font-weight:800;color:#1a1714}
+.hero p{margin:6px 0 0;font-size:13px;color:#5c5346}
+.tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;max-width:540px;margin:14px auto 0;padding:0 14px}
+.t-btn{padding:12px;border-radius:12px;border:1px solid #cbb182;background:#fbf8f2;color:#5c5346;font-weight:800;font-size:13px;transition:.15s}
+.t-btn.on{background:linear-gradient(135deg,#c9a255,#a88034);color:#fff;border-color:#9e762b;box-shadow:0 4px 14px rgba(168,128,52,.3)}
+.wrap{max-width:540px;margin:0 auto;padding:14px}
+.sec{display:none}
+.sec.show{display:block}
+.faq{background:#fffdf9;border:1px solid #dfd3bd;border-radius:14px;margin-bottom:10px;overflow:hidden;box-shadow:0 3px 10px rgba(138,104,42,.06)}
+.q{padding:14px 16px;font-weight:700;font-size:14px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;color:#1f1c18}
+.q span{color:#b0893d;font-size:16px;font-weight:800;margin-left:10px}
+.a{display:none;padding:0 16px 14px;font-size:13px;color:#4f483d;border-top:1px solid #f0e8d8;padding-top:10px}
+.faq.open .a{display:block}
+.card{background:#fffdf9;border:1px solid #dfd3bd;border-radius:16px;padding:16px;margin-bottom:12px;box-shadow:0 3px 12px rgba(138,104,42,.06)}
+.cat{font-family:monospace;font-size:11px;letter-spacing:1.5px;color:#99732e;text-transform:uppercase;margin:0 0 10px;font-weight:800}
+.item{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid #f2eadc;font-size:13px}
+.item:last-child{border:none;padding-bottom:0}
+.pr{background:#f4ead6;border:1px solid #d9c296;color:#7a591c;font-weight:800;padding:3px 9px;border-radius:8px;font-size:12px;white-space:nowrap;margin-left:10px}
+.btn{display:block;text-align:center;padding:15px;border-radius:14px;background:linear-gradient(135deg,#c9a255,#a88034);color:#fff;font-weight:800;font-size:14px;text-decoration:none;margin-top:12px;box-shadow:0 5px 16px rgba(168,128,52,.3)}
+.btn.sec-b{background:#1f1c18;color:#f6f1e7;box-shadow:none}
+.foot{text-align:center;font-family:monospace;font-size:11px;color:#8c8170;margin-top:20px}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="kicker">EMIRATES RP • CONCIERGE & LOUNGE</div>
+  <h1>🥂 Меню и Частые вопросы</h1>
+  <p>Всё о полётах на Airbus A380, системе миль и обслуживании на борту</p>
+</div>
+
+<div class="tabs">
+  <button class="t-btn on" onclick="sw('s1',this)">❓ Частые вопросы</button>
+  <button class="t-btn" onclick="sw('s2',this)">🥂 Меню на борту</button>
+</div>
+
+<div class="wrap">
+
+  <div id="s1" class="sec show">
+    <div class="faq open" onclick="this.classList.toggle('open')">
+      <div class="q">1. Как купить билет и выбрать место на A380?<span>▾</span></div>
+      <div class="a">Откройте нашего официального бота <b>@EmiratesRP_ptfs_bot</b>, выберите кресло в терминале на 1-м этаже (10 миль) или VIP-каюту на 2-м этаже (20 миль) и оплатите билет с баланса миль.</div>
+    </div>
+
+    <div class="faq" onclick="this.classList.toggle('open')">
+      <div class="q">2. Как бесплатно заработать мили на билет?<span>▾</span></div>
+      <div class="a">В боте каждый день доступен <b>ежедневный бонус</b>, а также начисление миль за приглашение друзей по реферальной ссылке и работа в экипаже на рейсах.</div>
+    </div>
+
+    <div class="faq" onclick="this.classList.toggle('open')">
+      <div class="q">3. Какой аэропорт является базой Emirates RP?<span>▾</span></div>
+      <div class="a">Наш главный базовый хаб в PTFS Roblox — <b>Tokyo International (HND)</b>. Отсюда выполняются основные международные рейсы на двухэтажном Airbus A380.</div>
+    </div>
+
+    <div class="faq" onclick="this.classList.toggle('open')">
+      <div class="q">4. Как заказать еду и коктейли во время полёта?<span>▾</span></div>
+      <div class="a">Нажмите кнопку <b>«🥂 Меню на борту»</b> в боте и отправьте название блюда, номер кресла и свой ник в Roblox. Командир спишет мили и направит к вам стюардессу или бармена.</div>
+    </div>
+
+    <div class="faq" onclick="this.classList.toggle('open')">
+      <div class="q">5. Что даёт Золотая карта Emirates (100 миль)?<span>▾</span></div>
+      <div class="a">Золотая карта открывает безлимитный VIP-статус, доступ в Лаунж-бар 2-го этажа без очереди, приоритетную посадку и повышенные бонусы на всех рейсах.</div>
+    </div>
+
+    <div class="faq" onclick="this.classList.toggle('open')">
+      <div class="q">6. Как устроиться пилотом, стюардессой или диспетчером?<span>▾</span></div>
+      <div class="a">Нажмите кнопку <b>«👨‍✈️ Анкета в экипаж»</b> в боте, ответьте на 7 простых вопросов одним сообщением и дождитесь ответа командира. За каждый рейс экипаж получает зарплату в милях.</div>
+    </div>
+
+    <div class="faq" onclick="this.classList.toggle('open')">
+      <div class="q">7. Какие правила нужно соблюдать на сервере во время рейса?<span>▾</span></div>
+      <div class="a">Занимать только оплаченное в боте кресло, слушать команды КВС и диспетчера УВД, не мешать рулению на полосе и соблюдать уважительное общение в чате.</div>
+    </div>
+
+    <a class="btn" href="https://t.me">🤖 Открыть бота Emirates RP</a>
+    <a class="btn sec-b" href="https://github.io">🛫 Перейти в First Class Hub</a>
+  </div>
+
+  <div id="s2" class="sec">
+    <div class="card">
+      <div class="cat">🥗 Холодные закуски и Токио-спешл</div>
+      <div class="item"><span>Салат «Цезарь» с курицей гриль</span><span class="pr">3 мили</span></div>
+      <div class="item"><span>Роллы «Филадельфия и Калифорния»</span><span class="pr">4 мили</span></div>
+      <div class="item"><span>Сырная тарелка «Премиум» с мёдом</span><span class="pr">4 мили</span></div>
+      <div class="item"><span>Канапе с лососем и авокадо</span><span class="pr">5 миль</span></div>
+      <div class="item"><span>Тартар из свежего тунца</span><span class="pr">6 миль</span></div>
+    </div>
+
+    <div class="card">
+      <div class="cat">🍲 Горячие блюда и Сэндвичи</div>
+      <div class="item"><span>Клаб-сэндвич «Emirates» с индейкой</span><span class="pr">3 мили</span></div>
+      <div class="item"><span>Паста Карбонара в сливочном соусе</span><span class="pr">4 мили</span></div>
+      <div class="item"><span>Куриное филе терияки с рисом</span><span class="pr">4 мили</span></div>
+      <div class="item"><span>Лапша удон с морепродуктами</span><span class="pr">5 миль</span></div>
+      <div class="item"><span>Запечённый лосось со спаржей</span><span class="pr">6 миль</span></div>
+      <div class="item"><span>Королевский стейк Рибай (VIP)</span><span class="pr">8 миль</span></div>
+    </div>
+
+    <div class="card">
+      <div class="cat">🍸 Лаунж-бар 2-го этажа и Коктейли</div>
+      <div class="item"><span>Коктейль «Мохито Классик»</span><span class="pr">3 мили</span></div>
+      <div class="item"><span>Коктейль «Пина Колада» / «Голубая Лагуна»</span><span class="pr">4 мили</span></div>
+      <div class="item"><span>Фирменный коктейль «Dubai Sunset»</span><span class="pr">5 миль</span></div>
+      <div class="item"><span>Коктейль «Tokyo Night» (ежевика и юдзу)</span><span class="pr">5 миль</span></div>
+      <div class="item"><span>Элитный «First Class Gold» с золотом</span><span class="pr">7 миль</span></div>
+    </div>
+
+    <div class="card">
+      <div class="cat">🍰 Десерты, Напитки и Комбо-сеты</div>
+      <div class="item"><span>Круассан с шоколадом / Арабский кофе</span><span class="pr">2 мили</span></div>
+      <div class="item"><span>Чизкейк / Пахлава / Японские Моти</span><span class="pr">3 мили</span></div>
+      <div class="item"><span>Шоколадный фондан с пломбиром</span><span class="pr">4 мили</span></div>
+      <div class="item"><span>Сет «Перекус в облаках»</span><span class="pr">5 миль</span></div>
+      <div class="item"><span>VIP-сет «Королевский полёт»</span><span class="pr">15 миль</span></div>
+      <div class="item"><span>💎 Весь ресторан на борту (все 36 блюд)</span><span class="pr">150 миль</span></div>
+    </div>
+
+    <a class="btn" href="https://t.me">🛎 Оформить заказ в боте</a>
+  </div>
+
+  <div class="foot">EMIRATES RP • FIRST CLASS SERVICE • 2026</div>
+</div>
+
+<script>
+function sw(id,b){
+  document.querySelectorAll('.sec').forEach(x=>x.classList.remove('show'));
+  document.getElementById(id).classList.add('show');
+  document.querySelectorAll('.t-btn').forEach(x=>x.classList.remove('on'));
+  b.classList.add('on');
+}
+</script>
+</body>
+</html>
