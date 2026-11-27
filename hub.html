@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Emirates RP • First Class Terminal</title>
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:#07080c;background-image:radial-gradient(circle at 50% -10%,#3b0912 0%,#0d0f17 45%,#06070a 100%);color:#f8fafc;font-family:-apple-system,BlinkMacSystemFont,sans-serif;padding-bottom:92px}
+.header{position:relative;background:linear-gradient(145deg,#b80d28 0%,#5e0614 100%);padding:22px 18px 24px;border-bottom:1.5px solid #d4af37;box-shadow:0 12px 35px rgba(184,13,40,.35);overflow:hidden}
+.header::after{content:"";position:absolute;top:-40px;right:-40px;width:140px;height:140px;background:radial-gradient(circle,rgba(212,175,55,.35),transparent 70%);border-radius:50%}
+.top-row{display:flex;justify-content:space-between;align-items:center;position:relative;z-index:2}
+.logo{font-weight:900;font-size:21px;letter-spacing:1.5px;text-shadow:0 2px 10px rgba(0,0,0,.4)}
+.badge{background:rgba(0,0,0,.45);border:1px solid #f0cf65;color:#f5d97e;padding:5px 11px;border-radius:30px;font-size:10px;font-weight:800;letter-spacing:1px}
+.sub{font-size:12px;color:rgba(255,255,255,.88);margin-top:8px;position:relative;z-index:2}
+.wrap{max-width:540px;margin:0 auto;padding:16px 14px}
+.card{background:linear-gradient(180deg,rgba(24,28,39,.92),rgba(14,17,24,.96));border:1px solid rgba(212,175,55,.25);border-radius:20px;padding:18px;margin-bottom:14px;box-shadow:0 10px 30px rgba(0,0,0,.5)}
+.title{display:flex;align-items:center;gap:8px;color:#e8c566;font-size:12px;font-weight:800;letter-spacing:1.3px;text-transform:uppercase;margin:0 0 14px}
+.flight{display:flex;justify-content:space-between;align-items:center;padding:13px 14px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-left:3px solid #2ecc71;border-radius:14px;margin-bottom:10px}
+.flight.vip{border-left-color:#d4af37;background:linear-gradient(90deg,rgba(212,175,55,.08),rgba(255,255,255,.02))}
+.live{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:800;color:#2ecc71;background:rgba(46,204,113,.14);padding:5px 9px;border-radius:10px}
+.dot{width:6px;height:6px;background:#2ecc71;border-radius:50%;box-shadow:0 0 8px #2ecc71}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:15px;border-radius:14px;border:none;font-weight:800;font-size:14px;letter-spacing:.3px;text-decoration:none;margin-top:10px;transition:transform .12s}
+.btn:active{transform:scale(.97)}
+.btn-gold{background:linear-gradient(135deg,#f3d578 0%,#c59b27 100%);color:#0b0d12;box-shadow:0 6px 20px rgba(212,175,55,.35)}
+.btn-crimson{background:linear-gradient(135deg,#d91432 0%,#8c091e 100%);color:#fff;box-shadow:0 6px 20px rgba(200,16,46,.4)}
+.btn-glass{background:rgba(255,255,255,.05);color:#f1f5f9;border:1px solid rgba(212,175,55,.35)}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
+.seat{padding:13px 0;border-radius:12px;border:1px solid rgba(46,204,113,.45);background:rgba(46,204,113,.1);color:#fff;font-weight:800;font-size:13px;transition:.15s}
+.seat.vip{border-color:rgba(212,175,55,.5);background:rgba(212,175,55,.12);color:#f3d27a}
+.seat.on{background:linear-gradient(135deg,#f3d578,#c59b27);color:#090b10;border-color:#fff;box-shadow:0 0 18px rgba(212,175,55,.55);transform:translateY(-2px)}
+.row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.07);font-size:13px}
+.row:last-child{border:none;padding-bottom:0}
+.tag{color:#f0cf65;font-weight:800;background:rgba(212,175,55,.12);padding:4px 9px;border-radius:8px;font-size:12px}
+.page{display:none;animation:fade .22s ease}
+.page.show{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.dock{position:fixed;bottom:0;left:0;right:0;background:rgba(10,12,18,.95);backdrop-filter:blur(18px);border-top:1px solid rgba(212,175,55,.35);display:grid;grid-template-columns:repeat(4,1fr);padding:8px 6px 16px;z-index:100}
+.tab{background:none;border:none;color:#7a8599;font-size:11px;font-weight:700;display:flex;flex-direction:column;align-items:center;gap:4px}
+.tab i{font-style:normal;font-size:19px}
+.tab.on{color:#f0cf65}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="top-row">
+    <div class="logo">✈️ EMIRATES RP</div>
+    <div class="badge">FIRST CLASS UI</div>
+  </div>
+  <div class="sub">Флагман: Airbus A380-800 • База: Tokyo International</div>
+</div>
+
+<div class="wrap">
+
+  <div id="p1" class="page show">
+    <div class="card">
+      <div class="title">🛫 Онлайн-табло рейсов (Токио)</div>
+      <div class="flight">
+        <div><b>EK-380 • Tokyo → Rockford</b><br><small style="color:#94a3b8">Airbus A380 • Выход на посадку A1</small></div>
+        <div class="live"><span class="dot"></span>ПОСАДКА</div>
+      </div>
+      <div class="flight vip">
+        <div><b>EK-001 • Tokyo → Perth (VIP)</b><br><small style="color:#94a3b8">Первый класс и Лаунж-бар 2 этаж</small></div>
+        <div class="live" style="color:#f0cf65;background:rgba(212,175,55,.16)">VIP РЕЙС</div>
+      </div>
+      <a class="btn btn-gold" href="https://t.me">🎫 Купить билет в боте</a>
+      <a class="btn btn-glass" href="https://t.me">📢 Официальный Telegram-канал</a>
+    </div>
+
+    <div class="card">
+      <div class="title">⚡ Центр управления и сервисы</div>
+      <a class="btn btn-crimson" href="https://t.me">👨‍✈️ Подать заявку в экипаж</a>
+      <a class="btn btn-glass" href="https://github.io">📖 Правила и история сообщества</a>
+      <a class="btn btn-glass" href="https://github.io">🌐 Официальный сайт-портал</a>
+    </div>
+  </div>
+
+  <div id="p2" class="page">
+    <div class="card">
+      <div class="title">💺 1-й этаж • Эконом-класс (10 миль)</div>
+      <div class="grid">
+        <button class="seat on" onclick="pick(this,'1A • 1-й этаж','10 миль')">1A</button>
+        <button class="seat" onclick="pick(this,'1B • 1-й этаж','10 миль')">1B</button>
+        <button class="seat" onclick="pick(this,'1C • 1-й этаж','10 миль')">1C</button>
+        <button class="seat" onclick="pick(this,'1D • 1-й этаж','10 миль')">1D</button>
+        <button class="seat" onclick="pick(this,'2A • 1-й этаж','10 миль')">2A</button>
+        <button class="seat" onclick="pick(this,'2B • 1-й этаж','10 миль')">2B</button>
+        <button class="seat" onclick="pick(this,'2C • 1-й этаж','10 миль')">2C</button>
+        <button class="seat" onclick="pick(this,'2D • 1-й этаж','10 миль')">2D</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="title">👑 2-й этаж • VIP и Лаунж-бар (20 миль)</div>
+      <div class="grid">
+        <button class="seat vip" onclick="pick(this,'VIP-1 • 2-й этаж','20 миль')">VIP-1</button>
+        <button class="seat vip" onclick="pick(this,'VIP-2 • 2-й этаж','20 миль')">VIP-2</button>
+        <button class="seat vip" onclick="pick(this,'BAR-1 • Лаунж','20 миль')">BAR-1</button>
+        <button class="seat vip" onclick="pick(this,'BAR-2 • Лаунж','20 миль')">BAR-2</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div id="chosen" style="font-size:14px">Выбрано кресло: <b>1A • 1-й этаж</b> — <b style="color:#f0cf65">10 миль</b></div>
+      <a class="btn btn-crimson" href="https://t.me">💳 Перейти к оплате в боте</a>
+    </div>
+  </div>
+
+  <div id="p3" class="page">
+    <div class="card">
+      <div class="title">🥂 Бортовой ресторан и Лаунж-бар</div>
+      <div class="row"><span>🍣 Роллы «Филадельфия» (Токио)</span><span class="tag">4 мили</span></div>
+      <div class="row"><span>🥩 Королевский стейк Рибай (VIP)</span><span class="tag">8 миль</span></div>
+      <div class="row"><span>🍸 Коктейль «Dubai Sunset»</span><span class="tag">5 миль</span></div>
+      <div class="row"><span>🥂 Коктейль «First Class Gold»</span><span class="tag">7 миль</span></div>
+      <div class="row"><span>👑 VIP-сет «Королевский полёт»</span><span class="tag">15 миль</span></div>
+      <a class="btn btn-gold" href="https://t.me">🛎 Заказать к креслу в боте</a>
+    </div>
+  </div>
+
+  <div id="p4" class="page">
+    <div class="card">
+      <div class="title">🏛 Регламент и История компании</div>
+      <div class="row"><span><b>Основатель:</b> Corwer2 • База: Tokyo</span></div>
+      <div class="row"><span><b>1. Дисциплина:</b> выполнять команды КВС и УВД</span></div>
+      <div class="row"><span><b>2. Билеты:</b> занимать только оплаченное кресло</span></div>
+      <div class="row"><span><b>3. Порядок:</b> запрещён таран, флуд и срыв рейса</span></div>
+      <a class="btn btn-crimson" href="https://t.me">📝 Заполнить анкету в экипаж</a>
+      <a class="btn btn-glass" href="https://github.io">📖 Открыть полный портал правил</a>
+    </div>
+  </div>
+
+</div>
+
+<div class="dock">
+  <button class="tab on" onclick="nav('p1',this)"><i>🛫</i>Табло</button>
+  <button class="tab" onclick="nav('p2',this)"><i>💺</i>Салон</button>
+  <button class="tab" onclick="nav('p3',this)"><i>🥂</i>Меню</button>
+  <button class="tab" onclick="nav('p4',this)"><i>👑</i>Правила</button>
+</div>
+
+<script>
+function nav(id,btn){
+  document.querySelectorAll('.page').forEach(x=>x.classList.remove('show'));
+  document.getElementById(id).classList.add('show');
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));
+  btn.classList.add('on');
+}
+function pick(el,name,cost){
+  document.querySelectorAll('.seat').forEach(x=>x.classList.remove('on'));
+  el.classList.add('on');
+  document.getElementById('chosen').innerHTML='Выбрано кресло: <b>'+name+'</b> — <b style="color:#f0cf65">'+cost+'</b>';
+}
+</script>
+</body>
+</html>
